@@ -1,0 +1,381 @@
+html, body{
+	margin : 0;
+	padding : 0;
+	height: 100%;
+}
+
+body{
+	min-width: 960px;
+	min-width: 60rem;
+	width: 100%;
+}
+
+/* 폼 */
+/* 박스 (가로길이 고정, 좌우 가운데 위치) */
+.formcontent{
+	width: 100%;
+	border: solid 1px #CCC;
+	box-sizing: border-box;
+	padding: 3%;
+	position: relative;
+	background: #FFF;
+}
+
+/* 폼 구성요소 한줄 */
+.formcontent .formrow{
+	width: 100%;
+	margin: 0.75em 0;
+}
+.formcontent .formrow:first-child{
+	margin-top: 0;
+}
+.formcontent .formrow:last-child{
+	margin-bottom: 0;
+}
+
+.formcontent .formrow:after{
+	content: "";
+	clear: both;
+	display: block;
+}
+
+.formcontent .formrow > *{
+	float: left;
+}
+
+/* 한줄 내에서 중앙정렬 */
+.formrow.formrow_center{
+	text-align: center;
+}
+
+/* 한줄 내에서 왼쪽정렬 */
+.formrow.formrow_left{
+	text-align: left;
+}
+
+/* 한줄 내에서 오른쪽정렬 */
+.formrow.formrow_right{
+	text-align: right;
+}
+
+.formrow.formrow_center > *,
+.formrow.formrow_left > *,
+.formrow.formrow_right > *{
+	float: none;
+}
+
+/* 폼 구성요소 한줄내의 라벨 */
+/* 한줄 바로아래 */
+.formcontent .formrow > label.rowlabel{
+	width: 25%;
+	display: block;
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/* 한줄 이내의 모든 label */
+.formcontent .formrow label{
+	font-size: 1em;
+	height: 1.75em;
+	line-height: 1.75em;
+}
+
+/* 폼안에 가로길이가 꽉차게 */
+.formcontent .form_ele_max{
+	width: 100%;
+}
+
+/* 폼 구성요소 한줄내의 폼 요소(가로 100%) */
+.formcontent .formrow > * > .form_ele_100 {
+    width: 100%;
+}
+
+.formcontent .formrow > .form_ele_100{
+	width: 75%;
+}
+/* 폼 구성요소 한줄내의 폼 요소(가로 75%) */
+.formcontent .formrow > * > .form_ele_75 {
+    width: 75%;
+}
+
+.formcontent .formrow > .form_ele_75{
+	width: 56.25%;
+}
+
+/* 폼 구성요소 한줄내의 폼 요소(가로 50%) */
+.formcontent .formrow > * > .form_ele_50 {
+    width: 50%;
+}
+
+.formcontent .formrow > .form_ele_50{
+	width: 37.5%;
+}
+
+/* 폼 구성요소 한줄내의 폼 요소(가로 40%) */
+.formcontent .formrow > * > .form_ele_40{
+	width: 40%;
+}
+
+.formcontent .formrow > .form_ele_40{
+	width: 30%;
+}
+
+/* 폼 구성요소 한줄내의 폼 요소(가로 30%) */
+.formcontent .formrow > * > .form_ele_30{
+	width: 30%;
+}
+
+.formcontent .formrow > .form_ele_30{
+	width: 22.5%;
+}
+
+/* 폼 구성요소 한줄내의 폼 요소(가로 20%) */
+.formcontent .formrow > * > .form_ele_20{
+	width: 20%;
+}
+
+.formcontent .formrow > .form_ele_20{
+	width: 15%;
+}
+
+/* 폼 구성요소 한줄내의 한글자(전회번호 '-', 이메일 '@'등) (가로길이 5%) */
+.formcontent .formrow > .form_ele_onechar{
+	display: block;
+	min-width: 3.75%;
+	font-size: 1em;
+	height: 1.75em;
+	line-height: 1.75em;
+	font-weight: bold;
+	text-align: center;
+}
+
+/* 버튼 */
+.sitebtn{
+	display: inline-block;
+	font-size: 1em;
+	height: 1.75em;
+	line-height: 1.75em;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	background-color: #999;
+	padding: 0 0.5em;
+	border: none;
+	border-radius: 0.25em;
+	cursor: pointer;
+	outline: none;
+	border-collapse: separate;
+	vertical-align: middle;
+	white-space: nowrap;
+	box-sizing: border-box;
+}
+
+.sitebtn:hover{
+	background-color: #666;
+}
+
+.sitebtn:focus{
+	box-shadow: 0 0 0px 2px #333;
+}
+
+/* 드롭다운 */
+.siteselect{
+	display: inline-block;
+	font-size: 1em;
+	height: 1.75em;
+	border: solid 1px #999;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.siteselect:focus{
+	outline: solid 2px #333;
+}
+
+/* 텍스트 필드 */
+.sitetxt{
+	display: inline-block;
+	font-size: 1em;
+	height: 1.75em;
+	border: solid 1px #999;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+/* 텍스트 에리어 */
+textarea.sitetxt{
+	height: auto;
+	min-height: 10em;
+	resize: vertical;
+}
+
+.sitetxt:focus{
+	outline: solid 2px #333;
+}
+
+/* 기타정보 */
+/* 한줄 */
+.product_info_detail > p{
+	font-size: 1em;
+	font-weight: bold;
+	margin: 0;
+	margin-bottom: 0.5em;
+}
+
+/* 기타정보 텍스트 */
+.product_info_detail > p > span{
+	font-weight: normal;
+}
+
+/* 상품 상세정보 하단 */
+.product_info_side > .product_info_bottom{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: right;
+}
+
+/* 댓글 */
+.qna_wrap{
+	margin: 1.5em 0;
+}
+
+.qna_content{
+	width: 100%;
+}
+
+/* 댓글 하나 */
+.qna_content > .qna_root,
+.qna_content > .qna_re{
+	box-sizing: border-box;
+	position: relative;
+	background-color: #FFF;
+}
+
+.qna_content .qna_row{
+	padding: 0.75em;
+}
+
+
+/* 댓글 타겟 닉네임 클릭 */
+.qna_content .qna_row:target{
+	outline: solid 0.15em #4040A1;
+}
+
+/* 최상위 댓글 */
+.qna_content .qna_root{
+	margin-top: 0.25em;
+}
+
+.qna_content > .qna_root > .qna_row{
+	border: solid 1px #999;
+}
+
+/* 대 댓글 */
+.qna_content > .qna_re{
+	margin-top: 0.25em;
+	margin-left: 2.5em;
+}
+
+.qna_content > .qna_re > .qna_row{
+	border: solid 1px #CCC;
+}
+
+/* 대댓글 표시 */
+.qna_re:before {
+	display: block;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -1.375em;
+	width: 1em;
+	height: 1em;
+	border: solid 0.125em #333;
+	border-top: 0;
+	border-right: 0;
+}
+
+/* 대댓글 타겟버튼 */
+.qna_content .recomm_target{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 0.9em;
+	vertical-align: text-top;
+	color: #00E;
+}
+
+.qna_content .recomm_target:before{
+	content: "▶";
+	vertical-align: top;
+	padding-right: 0.25em;
+}
+
+/* 댓글 상단바 */
+.qna_top{
+	position: relative;
+	font-size: 1em;
+	padding: 0.1em 0;
+	margin-bottom: 0.75em;
+}
+
+/* 댓글 작성자 */
+.qna_top > .qna_writer{
+	font-weight: bold;
+}
+
+/* 댓글 날짜 */
+.qna_top > .qna_date{
+	font-weight: lighter;
+	font-size: 0.75em;
+	color: #333;
+}
+
+/* 댓글 기능버튼 */
+.qna_top > .qna_btns{
+	width: 50%;
+	text-align: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.qna_btns > .sitebtn{
+	border-radius: 0;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+
+/* 댓글 내용 */
+.qna_root > .qna_txt,
+.qna_re > .qna_txt{
+	font-size: 1em;
+	margin-top: 0.5em;
+	color: #000;
+}
+
+/* 댓글, 대댓글 폼 */
+.qna_content .formShow .formcontent{
+	padding: 1.25em;
+	margin-top: 0.25em;
+}
+
+.qna_content .formShow form{
+	padding: 0;
+	margin: 0;
+}
+
+/* 대댓글폼 */
+.qna_content .qna_root form#insertReComment{
+	margin-left: 2.5em;
+}
+
+/* 댓글, 대댓글 폼 타이틀 */
+.qna_content .formShow .cformtitle{
+	margin: 0;
+	margin-bottom: 0.25em;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<!--DAO의 @Repository를 통해서 mapper를 찾아옴 -->
+<mapper namespace="com.see0gan.space.dao.SpaceDAO">
+	<insert id="hostInfo_Insert" parameterType="sp_hostInfoVO">
+		INSERT INTO SP_HOSTINFO (TBSP_NUM, 
+								TBH_NUM, 
+								TBH_EMAIL, 
+								TBH_PHONE, 
+								TBSP_TEL)
+				 values (
+				 #{tbsp_num, jdbcType=VARCHAR}, 
+				 #{tbh_num, jdbcType=VARCHAR}, 
+				 #{tbh_email, jdbcType=VARCHAR},
+				 #{tbh_phone, jdbcType=VARCHAR}, 
+				 #{tbsp_tel, jdbcType=VARCHAR})
+	</insert>
+</mapper>
+

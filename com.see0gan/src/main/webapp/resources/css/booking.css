@@ -1,0 +1,302 @@
+@charset "UTF-8";
+
+body{
+	background-color: #f6f6f6;
+	margin-top : 200px;
+}
+a{
+	text-decoration: none;
+}
+input {
+	padding: 10px 20px;
+}
+ul  {
+	list-style: none;
+	padding : 0px 20px 0px 20px
+}
+th{
+	width : 50px;
+	padding : 5px; 
+}
+td{
+	width : 50px;
+	padding : 5px;
+}
+em, span {
+    vertical-align: top;
+}
+h4{
+	margin : 0;
+	font-size: 25px;
+	display: inline-block;
+	padding-left : 10px;
+}
+h3{
+	margin : 0;
+}
+input[type=text]{
+	display: inline-block;
+    position: relative;
+    width: 300px;
+    background-color: #fff;
+    height: 40px;
+    padding: 0 16px;
+    line-height: 1.2;
+    align: right;
+}
+.wrap{
+	width: 100%;
+	min-height: 947px;
+	position: relative;
+}
+.flex_wrap{
+	padding-bottom: 30px;
+	
+}
+.formWidth{
+	margin : auto;
+	width:976px;
+}
+.context-wrapper{
+	width : 100%;
+    position: relative;
+	background-color : #FFF;
+}
+.inner_width{
+	width : 100%;
+	margin : auto;
+}
+.intro2{
+	padding-top : 10px;
+	width : 70%;
+	margin : auto;
+	font-size: 20px;
+}
+.sp_contents{
+	margin: 0 auto;
+	padding-bottom: 50px;
+	position: static;
+	/* height : 100%; */
+}
+.heading{
+	width: 100%;
+	border-bottom : 3px solid #704de4;
+	padding-bottom: 5px;
+	margin-top: 50px;
+	position: relative;
+	
+}
+.heading--new {
+    padding-top: 120px;
+    padding-bottom: 20px;
+    font-size: 34px;
+    text-align: center;
+}
+
+.pay_info {
+    width: 648px;
+    padding: 32px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #fff;
+}
+.pay_finish{
+	width: 648px;
+    padding: 32px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.heading h3{
+	display: inline-block;
+	font-size: 36px;
+	margin : 0;
+}
+.headingLine{
+	border-bottom : 3px solid #704de4;
+	padding-bottom : 0px;
+	margin : 0;
+}
+.intro1{
+	font-size: 20px;
+	color : #656565;
+}
+
+
+.space_photo{
+	width:500px;
+	height:300px;
+	background-size : cover;
+	background-position : 50%;
+	position : relative;
+	margin : auto;
+	margin-top : 1px;
+	
+}
+tr:first-child {
+    margin-left: 20px;
+}
+
+.list_detail li:before {
+    top: 18px;
+    left : 1px;
+    width: 4px;
+    height: 4px;
+    margin-top: 0px;
+    content: "";
+    position: absolute;
+    background-color: #656565;
+}
+.list_detail li {
+    position: relative;
+    padding: 12px 0 11px 150px;
+    border-bottom: 1px solid #ebebeb;
+}
+.required {
+    color: #ff3a48;
+    font-size: 18px;
+}
+.flex_box{
+	padding : 0;
+	position : relative;
+	display : table;
+	width : 100%;
+}
+
+.input {
+    position: relative;
+}
+
+.tit{
+	left:14px;
+	margin-right:18px;
+	position:absolute;
+	color:#656565;
+}
+
+.scrolltable {
+  width : 100%;
+  display: block;
+  overflow: auto;
+  border : 1px solid #704de4;
+  border-collapse:collapse;
+  border-spacing: 0;
+}
+.time-range{
+	background: #ffd014;
+	width : 100px;
+	padding : 5px;
+	white-space: nowrap;
+	border : 2px solid #848484;
+}
+.chklist{
+	padding : 5px 0 0 5px;
+}
+
+.book_able{
+	height : 25px;
+	width : 50px;
+	padding : 5px;
+	background-color : #ffb52b;
+	border : 2px solid #ffa448;
+	text-align: center;
+}
+.clicked{
+	background-color: #704DE4;
+	border : 2px solid #704DE4;
+	padding : 5px;
+	color: white;
+}
+.book_disable{
+	height : 25px;
+	width : 50px;
+	padding : 5px;
+	background-color: #808080;
+	border : 2px solid #848484;
+	text-align: center;
+}
+.con{
+  padding: 0; 
+  display:none;
+  
+}
+.agree {
+	padding : 0 10px 0 10px;
+
+}
+.agree_con{
+	padding-top : 50px;
+	background-color: #f6f6f6;
+}
+.boktimeTrShow{
+	position: relative;
+    height: 50px;
+    border-spacing: 0
+}
+.sp_btn_bottom input {
+    display: inline-block;
+    color: #fff;
+    width: 49%;
+    line-height: 45px;
+    text-align: center;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    
+}
+.btn_next {
+    background-color: #704DE4;
+    right: 0;
+}
+.btn_prev {
+    background-color: #4d4d4d;
+}
+.btn_home {
+    background-color: #ffd014;
+}
+.btn_mypage {
+    background-color: #704DE4;
+}
+input {
+    padding: 10px 20px;
+}
+.box_form {
+    position: relative;
+    padding: 0;
+}
+.caution{
+	padding : 5px 10px 5px 10px;
+}
+.box_notice .heading {
+	width : 100%;
+    padding: 11px 15px 9px;
+    background-color: #ebebeb;
+    border-bottom: 0;
+    font-size: 13px;
+}
+
+@media (max-width: 768px){
+	.sp_contents{
+		padding: 0 100px 50px 100px;
+	}
+
+	.sp_btn_bottom {
+	    width: 100%;
+	    margin: 0 auto;
+	}
+}
+
+@media (min-width: 768px) {
+	th td{
+	}
+	.sp_contents{
+	
+		padding: 0 100px 50px 100px;
+	}
+
+	.sp_btn_bottom {
+	    width: 100%;
+	    margin: 0 auto;
+	}
+	
+}

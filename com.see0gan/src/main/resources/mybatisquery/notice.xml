@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.see0gan.mypage.dao.NoticeDAO">
+
+	<insert id="noticeInsert" parameterType="mpvo">
+		INSERT INTO MP_NOTICE(
+						  TBNT_NUM
+						 ,TBNT_TYPE
+						 ,TBNT_SUBJECT
+						 ,TBNT_CONTENT
+						 ,TBNT_INSERTDATE
+						 ,TBNT_DELETEYN
+						 )
+		VALUES			 (
+						  #{ntnum, jdbcType=VARCHAR}
+						 ,#{nttype, jdbcType=VARCHAR}
+						 ,#{ntsubject, jdbcType=VARCHAR}
+						 ,#{ntcontent, jdbcType=VARCHAR}
+						 ,SYSDATE
+						 ,'N'
+						 )
+	</insert>
+	
+	<select id="noticeSelectPage" resultType="mpvo">
+		SELECT * FROM
+			(SELECT	A.TBNT_NUM			NTNUM
+					,A.TBNT_TYPE		NTTYPE
+					,A.TBNT_SUBJECT		NTSUBJECT
+					,A.TBNT_CONTENT		NTCONTENT
+					,TO_CHAR(A.TBNT_INSERTDATE, 'YYYY-MM-DD') NTINSERTDATE
+					,A.TBNT_DELETEYN	NTDELETEYN
+					,CEIL(ROW_NUMBER() OVER(ORDER BY A.TBNT_NUM DESC) / #{pagesize}) PAGENO
+					,COUNT(A.TBNT_NUM)	OVER() AS TOTALCOUNT
+			FROM MP_NOTICE A
+			WHERE TBNT_DELETEYN = 'N'
+			ORDER BY 1 DESC
+			)
+		WHERE PAGENO = #{curpage}
+		ORDER BY NTNUM DESC	
+	</select>	
+
+	<select id="noticeSelectAll" resultType="mpvo">
+	
+		SELECT	A.TBNT_NUM			NTNUM
+				,A.TBNT_TYPE		NTTYPE
+				,A.TBNT_SUBJECT		NTSUBJECT
+				,A.TBNT_CONTENT		NTCONTENT
+				,TO_CHAR(A.TBNT_INSERTDATE, 'YYYY-MM-DD') NTINSERTDATE
+				,A.TBNT_DELETEYN	NTDELETEYN	
+		FROM MP_NOTICE A
+		WHERE TBNT_DELETEYN = 'N'
+		ORDER BY 1 DESC
+		
+	</select>
+	
+	<select id="noticeSelect" parameterType="mpvo" resultType="mpvo">
+		SELECT
+				 A.TBNT_NUM			NTNUM
+				 ,A.TBNT_TYPE		NTTYPE
+				 ,A.TBNT_SUBJECT	NTSUBJECT
+				 ,A.TBNT_CONTENT	NTCONTENT
+				 ,A.TBNT_INSERTDATE	NTINSERTDATE
+				 ,A.TBNT_DELETEYN	NTDELETEYN
+		FROM 	 MP_NOTICE A
+		WHERE 	 A.TBNT_NUM = #{ntnum, jdbcType=VARCHAR}
+		AND		 A.TBNT_DELETEYN = 'N'
+	</select>
+	
+	<update id="noticeUpdate" parameterType="mpvo">
+		UPDATE	 MP_NOTICE A
+		SET		A.TBNT_SUBJECT = #{ntsubject, jdbcType=VARCHAR}
+				,A.TBNT_CONTENT = #{ntcontent, jdbcType=VARCHAR}
+		WHERE	 A.TBNT_NUM = #{ntnum, jdbcType=VARCHAR}
+		AND		 A.TBNT_DELETEYN = 'N'
+	</update>
+	
+	<update id="noticeDelete" parameterType="mpvo">
+		UPDATE	 MP_NOTICE A
+		SET		 A.TBNT_DELETEYN = 'Y'
+		WHERE	 A.TBNT_NUM = #{ntnum, jdbcType=VARCHAR}
+		AND		 A.TBNT_DELETEYN = 'N'
+	</update>
+
+</mapper>

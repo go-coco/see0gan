@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.see0gan.one.dao.OneDAO">
+
+<insert id="oneInsert" parameterType="mpvo">
+
+	INSERT INTO MP_ONEONONE
+		(TBONE_NUM
+		,TBONE_MNUM
+		,TBONE_NICK
+		,TBONE_CONTENT
+		,TBONE_INSERTDATE
+		,TBONE_DELETEYN
+		)
+		VALUES
+		(#{onenum, jdbcType=VARCHAR}
+		,#{onemnum, jdbcType=VARCHAR}
+		,#{onenick, jdbcType=VARCHAR}
+		,#{onecontent, jdbcType=VARCHAR}
+		,SYSDATE
+		,'N'
+		)
+</insert>
+
+<select id="oneSelect" parameterType="mpvo" resultType="mpvo">
+	SELECT	TBONE_NUM				ONENUM
+			,TBONE_MNUM				ONEMNUM
+			,TBONE_NICK				ONENICK
+			,TBONE_CONTENT			ONECONTENT
+			,TBONE_INSERTDATE		ONEINSERTDATE
+			,TBONE_DELETEYN			ONEDELETEYN
+	FROM	MP_ONEONONE
+	WHERE	TBONE_NUM = #{onenum, jdbcType=VARCHAR}
+</select>
+
+<select id="oneSelectAll" parameterType="mpvo" resultType="mpvo">
+	SELECT	TBONE_NUM				ONENUM
+			,TBONE_MNUM				ONEMNUM
+			,TBONE_NICK				ONENICK
+			,TBONE_CONTENT			ONECONTENT
+			,TBONE_INSERTDATE		ONEINSERTDATE
+			,TBONE_DELETEYN			ONEDELETEYN
+	FROM	MP_ONEONONE
+	WHERE	TBONE_MNUM != 'Admin'
+	AND		TBONE_DELETEYN = 'N'
+</select>
+
+<select id="oneSelectAllU" parameterType="mpvo" resultType="mpvo">
+	SELECT	TBONE_NUM				ONENUM
+			,TBONE_MNUM				ONEMNUM
+			,TBONE_NICK				ONENICK
+			,TBONE_CONTENT			ONECONTENT
+			,TBONE_INSERTDATE		ONEINSERTDATE
+			,TBONE_DELETEYN			ONEDELETEYN
+	FROM	MP_ONEONONE
+	WHERE	TBONE_MNUM = #{onemnum, jdbcType=VARCHAR}
+	AND		TBONE_DELETEYN = 'N'
+</select>
+
+<update id="oneUpdate" parameterType="mpvo">
+	UPDATE	MP_ONEONONE
+	SET		TBONE_CONTENT = #{onecontent, jdbcType=VARCHAR}
+			,TBONE_INSERTDATE = SYSDATE
+	WHERE	TBONE_DELETEYN = 'N'
+	AND		TBONE_NUM = #{onenum, jdbcType=VARCHAR}
+</update>
+
+<update id="oneDelete" parameterType="mpvo">
+	UPDATE	MP_ONEONONE
+	SET		TBONE_DELETEYN = 'Y'
+			,TBONE_INSERTDATE = SYSDATE
+	WHERE	TBONE_DELETEYN = 'N'
+	AND		TBONE_NUM = #{onenum, jdbcType=VARCHAR}
+</update>
+
+</mapper>
+

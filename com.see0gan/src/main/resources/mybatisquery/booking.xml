@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.see0gan.booking.dao.BookingDAO">
+
+<resultMap type="com.see0gan.booking.vo.BookingVO" id="bkvo">
+	<result property="tbsp_bok_num" column="TBSP_BOK_NUM"/>
+	<result property="tbsp_bok_date" column="TBSP_BOK_DATE"/>
+	<result property="tbsp_bok_time_s" column="TBSP_BOK_TIME_S"/>
+	<result property="tbsp_bok_time_e" column="TBSP_BOK_TIME_E"/>
+
+	<result property="tbsp_bok_type" column="TBSP_BOK_TYPE"/>
+	<result property="tbsp_bok_status" column="TBSP_BOK_STATUS"/>
+	<result property="tbsp_bok_person" column="TBSP_BOK_PERSON"/>
+	
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_name" column="TBSP_NAME"/>
+	<result property="tbsp_intro1" column="TBSP_INTRO1"/>
+	<result property="tbsp_intro2" column="TBSP_INTRO2"/>
+	<result property="tbsp_img1" column="TBSP_IMG1"/>
+	<result property="tbsp_capacity" column="TBSP_CAPACITY"/>
+	<result property="tbsp_type" column="TBSP_TYPE"/>
+	<result property="tbsp_cuation" column="TBSP_CAUTION"/>
+	
+	<result property="tbsp_cost" column="TBSP_COST"/>
+	<result property="tbsp_time_start" column="TBSP_TIME_START"/>
+	<result property="tbsp_time_end" column="TBSP_TIME_END"/>
+	
+	<result property="tbsp_r_dayoff" column="TBSP_R_DAYOFF"/>
+	<result property="tbsp_r_dayoff2" column="TBSP_R_DAYOFF2"/>
+	<result property="tbsp_dayoff" column="TBSP_DAYOFF"/>
+	<result property="tbsp_dayoff_start" column="TBSP_DAYOFF_START"/>
+	<result property="tbsp_dayoff_end" column="TBSP_DAYOFF_END"/>
+	<result property="tbsp_dayoff2" column="TBSP_DAYOFF2"/>
+	
+	<result property="book01" column="BOOK01"/>
+	<result property="book02" column="BOOK02"/>
+	<result property="book03" column="BOOK03"/>
+	<result property="book04" column="BOOK04"/>
+	<result property="book05" column="BOOK05"/>
+	<result property="book06" column="BOOK06"/>
+	<result property="book07" column="BOOK07"/>
+	<result property="book08" column="BOOK08"/>
+	<result property="book09" column="BOOK09"/>
+	<result property="book10" column="BOOK10"/>
+	<result property="book11" column="BOOK11"/>
+	<result property="book12" column="BOOK12"/>
+	<result property="book13" column="BOOK13"/>
+	<result property="book14" column="BOOK14"/>
+	<result property="book15" column="BOOK15"/>
+	<result property="book16" column="BOOK16"/>
+	<result property="book17" column="BOOK17"/>
+	<result property="book18" column="BOOK18"/>
+	<result property="book19" column="BOOK19"/>
+	<result property="book20" column="BOOK20"/>
+	<result property="book21" column="BOOK21"/>
+	<result property="book22" column="BOOK22"/>
+	<result property="book23" column="BOOK23"/>
+	<result property="book24" column="BOOK24"/>
+	
+	<result property="tbc_name" column="TBC_NAME"/>
+	<result property="tbc_res_num" column="TBC_RES_NUM"/>
+	<result property="tbc_ceo" column="TBC_CEO"/>
+	<result property="tbh_phone" column="TBH_PHONE"/>
+	<result property="tbh_email" column="TBH_EMAIL"/>
+	
+	<result property="tbsp_refund1" column="TBSP_REFUND1"/>
+	<result property="tbsp_refund2" column="TBSP_REFUND2"/>
+	<result property="tbsp_refund3" column="TBSP_REFUND3"/>
+</resultMap>
+
+<!-- 공간정보 조회 -->
+<select id="spaceSelect" parameterType="BookingVO" resultType="BookingVO">
+	SELECT 
+		A.TBSP_NUM	TBSP_NUM,
+		A.TBSP_NAME TBSP_NAME, 
+	    A.TBSP_TYPE TBSP_TYPE, 
+	    A.TBSP_INTRO1 TBSP_INTRO1,
+	    A.TBSP_INTRO2 TBSP_INTRO2,
+	    A.TBSP_IMG1 TBSP_IMG1,
+	    A.TBSP_CAPACITY TBSP_CAPACITY,
+	    B.TBSP_COST TBSP_COST,
+	    B.TBSP_TIME_START TBSP_TIME_START,
+	    B.TBSP_TIME_END TBSP_TIME_END,
+	    C.TBSP_R_DAYOFF TBSP_R_DAYOFF,
+	    C.TBSP_R_DAYOFF2 TBSP_R_DAYOFF2,
+	    C.TBSP_DAYOFF TBSP_DAYOFF,
+	    C.TBSP_DAYOFF_START TBSP_DAYOFF_START,
+	    C.TBSP_DAYOFF_END TBSP_DAYOFF_END,
+	    C.TBSP_DAYOFF2 TBSP_DAYOFF2
+	FROM 
+	    SP_BASIC A
+    INNER JOIN 
+	    SP_GUIDE B
+        ON A.TBSP_NUM = B.TBSP_NUM
+    INNER JOIN
+	    SP_DAYOFF C
+        ON A.TBSP_NUM = C.TBSP_NUM
+    WHERE A.TBSP_NUM= #{tbsp_num, jdbcType=VARCHAR}
+    
+</select>
+
+<!-- 예약시간 정보 조회 -->
+<select id="timeSelect" parameterType="BookingVO" resultType="BookingVO">
+SELECT
+	A.TBSP_NUM TBSP_NUM,
+    A.BOOK01 BOOK01, A.BOOK02 BOOK02, A.BOOK03 BOOK03, A.BOOK04 BOOK04, A.BOOK05 BOOK05, A.BOOK06 BOOK06, 
+    A.BOOK07 BOOK07, A.BOOK08 BOOK08, A.BOOK09 BOOK09, A.BOOK10 BOOK10, A.BOOK11 BOOK11, A.BOOK12 BOOK12,
+    A.BOOK13 BOOK13, A.BOOK14 BOOK14, A.BOOK15 BOOK15, A.BOOK16 BOOK16, A.BOOK17 BOOK17, A.BOOK18 BOOK18,
+    A.BOOK19 BOOK19, A.BOOK20 BOOK20, A.BOOK21 BOOK21, A.BOOK22 BOOK22, A.BOOK23 BOOK23, A.BOOK24 BOOK24
+    
+FROM BOK_TIME A
+WHERE TBSP_BOK_DATE= #{tbsp_bok_date, jdbcType=VARCHAR}
+AND TBSP_NUM= #{tbsp_num, jdbcType=VARCHAR}
+
+    
+</select>
+
+<!-- 호스트정보 조회 -->
+<select id="bokHostSelect" parameterType="BookingVO" resultType="BookingVO">
+SELECT
+	A.TBSP_NUM TBSP_NUM, 
+    A.TBC_NAME TBC_NAME,
+    A.TBC_RES_NUM TBC_RES_NUM,
+    A.TBC_CEO TBC_CEO,
+    B.TBH_PHONE TBH_PHONE,
+    B.TBH_EMAIL TBH_EMAIL,
+    C.TBSP_NAME TBSP_NAME,
+    C.TBSP_TYPE TBSP_TYPE,
+    C.TBSP_CAUTION TBSP_CAUTION,
+    C.TBSP_IMG1 TBSP_IMG1,
+    D.TBSP_REFUND1 TBSP_REFUND1,
+    D.TBSP_REFUND2 TBSP_REFUND2,
+    D.TBSP_REFUND3 TBSP_REFUND3
+    
+FROM
+    SP_ACCOUNTS A
+INNER JOIN
+    SP_HOSTINFO B
+	ON	A.TBSP_NUM = B.TBSP_NUM
+INNER JOIN
+	SP_BASIC C
+	ON	A.TBSP_NUM = C.TBSP_NUM
+INNER JOIN
+	SP_REFUND D
+	ON	A.TBSP_NUM = D.TBSP_NUM
+WHERE C.TBSP_NUM = #{tbsp_num, jdbcType=VARCHAR}
+    
+</select>
+
+<!-- 예약내역 등록 -->
+<insert id="bookingInsert" parameterType="BookingVO">
+INSERT INTO BOK_HISTORY(
+    TBSP_BOK_NUM,
+    TBSP_NUM,
+    TBU_NAME,               
+    TBSP_BOK_DATE,
+    TBSP_BOK_TIME_S,
+    TBSP_BOK_TIME_E,
+    TBSP_BOK_TYPE,         
+    TBSP_BOK_STATUS,       
+    TBSP_NAME,
+    TBSP_BOK_PERSON,
+    TBSP_CAPACITY,
+    TBU_GUESTID,              
+    TBU_PHONE,                
+    TBSP_BOK_DELETEYN          
+) VALUES(
+    #{tbsp_bok_num, jdbcType=VARCHAR},
+    #{tbsp_num, jdbcType=VARCHAR},                   
+    #{tbu_name, jdbcType=VARCHAR},
+    #{tbsp_bok_date, jdbcType=VARCHAR},
+    #{tbsp_bok_time_s, jdbcType=VARCHAR},
+    #{tbsp_bok_time_e, jdbcType=VARCHAR},
+    '바로결제',
+    '예약완료',
+    #{tbsp_name, jdbcType=VARCHAR},
+    #{tbsp_bok_person, jdbcType=VARCHAR},
+    #{tbsp_capacity, jdbcType=VARCHAR},
+    #{tbu_guestid, jdbcType=VARCHAR},                
+    #{tbu_phone, jdbcType=VARCHAR},      
+    'N')		
+</insert>
+
+<update id="bookingTimeUpdate" parameterType="BookingVO">
+UPDATE BOK_TIME 
+SET 
+	BOOK01= #{book01, jdbcType=VARCHAR}, 
+	BOOK02= #{book02, jdbcType=VARCHAR}, 
+	BOOK03= #{book03, jdbcType=VARCHAR}, 
+	BOOK04= #{book04, jdbcType=VARCHAR}, 
+	BOOK05= #{book05, jdbcType=VARCHAR}, 
+	BOOK06= #{book06, jdbcType=VARCHAR}, 
+	BOOK07= #{book07, jdbcType=VARCHAR}, 
+	BOOK08= #{book08, jdbcType=VARCHAR}, 
+	BOOK09= #{book09, jdbcType=VARCHAR}, 
+	BOOK10= #{book10, jdbcType=VARCHAR}, 
+	BOOK11= #{book11, jdbcType=VARCHAR}, 
+	BOOK12= #{book12, jdbcType=VARCHAR}, 
+	BOOK13= #{book13, jdbcType=VARCHAR}, 
+	BOOK14= #{book14, jdbcType=VARCHAR}, 
+	BOOK15= #{book15, jdbcType=VARCHAR}, 
+	BOOK16= #{book16, jdbcType=VARCHAR}, 
+	BOOK17= #{book17, jdbcType=VARCHAR}, 
+	BOOK18= #{book18, jdbcType=VARCHAR}, 
+	BOOK19= #{book19, jdbcType=VARCHAR}, 
+	BOOK20= #{book20, jdbcType=VARCHAR}, 
+	BOOK21= #{book21, jdbcType=VARCHAR}, 
+	BOOK22= #{book22, jdbcType=VARCHAR}, 
+    BOOK23= #{book23, jdbcType=VARCHAR}, 
+    BOOK24= #{book24, jdbcType=VARCHAR}
+WHERE TBSP_BOK_DATE= #{tbsp_bok_date, jdbcType=VARCHAR}
+AND TBSP_NUM= #{tbsp_num, jdbcType=VARCHAR}
+</update>
+
+<select id="spaceSelectk" parameterType="BookingVO" resultType="BookingVO">
+	SELECT 
+	    B.TBSP_TIME_END TBSP_TIME_END
+	FROM 
+	    SP_BASIC A,
+	    SP_GUIDE B
+	    WHERE A.TBSP_NUM = B.TBSP_NUM
+	    AND A.TBSP_NUM= 'S0003'
+	    <!-- AND A.TBSP_NUM= #{tbsp_num, jdbcType=VARCHAR} -->
+</select>
+
+<select id="bookHisSelect" parameterType="BookingVO" resultType="BookingVO">
+	    
+	  SELECT 
+	   A.TBSP_BOK_NUM,
+	   A.TBSP_NUM,
+	   A.TBU_NAME,
+	   A.TBSP_BOK_DATE,
+	   A.TBSP_BOK_TIME_S,
+	   A.TBSP_BOK_TIME_E,
+	   A.TBSP_BOK_TYPE,
+	   A.TBSP_BOK_STATUS,
+	   A.TBSP_NAME,
+	   A.TBSP_BOK_PERSON,
+	   A.TBSP_CAPACITY,
+	   A.TBU_GUESTID,
+	   A.TBU_PHONE,
+	   A.TBSP_BOK_DELETEYN
+	FROM 
+	    BOK_HISTORY A, GUEST B
+    WHERE A.TBU_GUESTID = B.TBU_GUESTID
+    and B.TBU_GUESTID = #{tbu_guestid, jdbcType=VARCHAR}
+    AND  A.TBSP_BOK_DELETEYN ='N'
+	    <!-- AND A.TBSP_NUM= #{tbsp_num, jdbcType=VARCHAR} -->
+</select>
+
+<update id="bokHisUpdate" parameterType="BookingVO">
+UPDATE BOK_HISTORY 
+SET 
+	TBSP_BOK_STATUS = '예약취소',
+	TBSP_BOK_DELETEYN = 'Y'
+WHERE TBSP_BOK_NUM= #{tbsp_bok_num, jdbcType=VARCHAR}
+
+</update>
+
+</mapper>

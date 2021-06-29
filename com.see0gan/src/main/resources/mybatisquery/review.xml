@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+						
+<mapper namespace="com.see0gan.review.dao.ReviewDAO">
+
+	<!-- (공간번호로)선택한 상품의 리뷰목록을 가져오는 쿼리 -->
+	<select id="reviewList" parameterType="mpvo" resultType="mpvo">
+		SELECT  
+		        R.TBRV_NUM			RVNUM
+		       ,R.TBRV_SPNUM      	RVSPNUM
+		       ,R.TBRV_GUESTID     	GUESTID
+		       ,R.TBRV_NICKNAME		NICKNAME
+		       ,R.TBRV_RATING		RATING
+		       ,R.TBRV_CONTENT    	RVCONTENT
+		       ,R.TBRV_INSERTDATE	RVINSERTDATE
+		       ,R.TBRV_UPDATEDATE	RVUPDATEDATE
+		       ,R.TBRV_DELETEYN		RVDELETEYN
+		FROM    MP_REVIEW R
+		WHERE   R.TBRV_SPNUM = #{rvspnum, jdbcType=VARCHAR}
+		ORDER BY
+		        R.TBRV_NUM ASC
+	</select>
+
+	<!-- (댓글 번호로)선택한 댓글을 가져오는 쿼리 -->
+	<select id="reviewSelect" parameterType="mpvo" resultType="mpvo">
+		SELECT  
+		        R.TBRV_NUM			RVNUM
+		       ,R.TBRV_SPNUM       RVSPNUM
+		       ,R.TBRV_GUESTID      GUESTID
+		       ,R.TBRV_NICKNAME		NICKNAME
+		       ,R.TBRV_RATING		RATING
+		       ,R.TBRV_CONTENT     RVCONTENT
+		       ,R.TBRV_INSERTDATE  RVINSERTDATE
+		       ,R.TBRV_UPDATEDATE  RVUPDATEDATE
+		       ,R.TBRV_DELETEYN    RVDELETEYN
+		FROM    MP_REVIEW R
+		WHERE   TBRV_DELETEYN = 'N'
+		AND     TBRV_NUM   = #{rvnum, jdbcType=VARCHAR}
+	</select>
+
+	<!-- 리뷰을 입력하는 쿼리(최상위 리뷰) -->
+	<insert id="reviewRootInsert" parameterType="mpvo">
+		INSERT INTO MP_REVIEW (
+		        TBRV_NUM        	-- 리뷰 번호
+		       ,TBRV_SPNUM			-- 공간 번호
+		       ,TBRV_GUESTID		-- 유저 번호
+		       ,TBRV_NICKNAME		-- 유저 닉네임
+		       ,TBRV_RATING			-- 별점
+		       ,TBRV_CONTENT		-- 리뷰 내용
+		       ,TBRV_INSERTDATE 	-- 리뷰 작성일
+		       ,TBRV_UPDATEDATE		-- 리뷰 수정일
+		       ,TBRV_DELETEYN		-- 삭제 여부
+		)
+		VALUES (
+		        #{rvnum, jdbcType=VARCHAR}
+		       ,#{rvspnum, jdbcType=VARCHAR}
+		       ,#{guestId, jdbcType=VARCHAR}
+		       ,#{nickName, jdbcType=VARCHAR}
+		       ,#{rating, jdbcType=VARCHAR}
+		       ,#{rvcontent, jdbcType=VARCHAR}
+		       ,SYSDATE
+		       ,SYSDATE
+		       ,'N'
+		)
+	</insert>
+	
+	<!-- 댓글을 수정하는 쿼리 -->
+	<update id="reviewUpdate" parameterType="mpvo">
+		UPDATE  MP_REVIEW
+		SET
+				TBRV_RATING = #{rating, jdbcType=VARCHAR}
+		        ,TBRV_CONTENT = #{rvcontent, jdbcType=VARCHAR}
+		WHERE   TBRV_DELETEYN = 'N'
+		AND     TBRV_NUM   = #{rvnum, jdbcType=VARCHAR}
+		AND     TBRV_GUESTID   = #{guestId, jdbcType=VARCHAR}
+	</update>
+
+	<!-- 댓글을 삭제하는 쿼리 -->
+	<update id="reviewDelete" parameterType="mpvo">
+		UPDATE  MP_REVIEW
+		SET
+		        TBRV_DELETEYN = 'Y'
+		WHERE   TBRV_DELETEYN = 'N'
+		AND     TBRV_NUM   = #{rvnum, jdbcType=VARCHAR}
+		AND     TBRV_GUESTID   = #{guestId, jdbcType=VARCHAR}
+	</update>
+
+	<!-- 댓글을 삭제하는 쿼리(관리자) -->
+	<update id="reviewDeleteAdmin" parameterType="mpvo">
+		UPDATE  MP_REVIEW
+		SET
+		        TBRV_DELETEYN = 'Y'
+		WHERE   TBRV_DELETEYN = 'N'
+		AND     TBRV_NUM   = #{rvnum, jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

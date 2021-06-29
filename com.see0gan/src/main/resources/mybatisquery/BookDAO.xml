@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.see0gan.mypage.dao.BookDAO">
+<resultMap type="com.see0gan.booking.vo.BookingVO" id="BookVO">
+	<result property="tbsp_bok_num" column="TBSP_BOK_NUM"/>
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_bok_date" column="TBSP_BOK_DATE"/>
+	<result property="tbsp_bok_time_s" column="TBSP_BOK_TIME_S"/>
+	<result property="tbsp_bok_time_e" column="TBSP_BOK_TIME_E"/>
+	<result property="tbsp_bok_type" column="TBSP_BOK_TYPE"/>
+	<result property="tbsp_bok_status" column="TBSP_BOK_STATUS"/>
+</resultMap>
+
+<select id="getBookList" parameterType="com.see0gan.booking.vo.BookingVO" resultMap="BookVO">
+	SELECT					
+		TBSP_NUM,											
+		TBSP_BOK_DATE,							
+		TBSP_BOK_TIME_S,							
+		TBSP_BOK_TIME_E,							
+		TBSP_BOK_TYPE			
+	FROM BOK_HISTORY
+</select>
+
+<!-- 게스트 -->
+<select id="guestSelect" parameterType="com.see0gan.login.vo.GuestVO">
+	SELECT
+		TBU_GUESTID,		
+        TBU_NICKNAME,			
+        TBU_NAME,		
+        TBU_EMAIL,		
+        TBU_PW,	
+        TBU_PHONE,			
+        TBU_DELETEYN,			
+        TBU_INSERTDATE,			
+        TBU_UPDATEDATE
+    FROM GUEST
+    WHERE TBU_GUESTID = #{tbu_guestid}
+</select>
+
+<update id="guestynUpdate" parameterType="com.see0gan.login.vo.GuestVO">
+	UPDATE GUEST
+	SET
+			TBU_DELETEYN = 'Y',
+			TBU_UPDATEDATE = SYSDATE
+	WHERE	TBU_GUESTID = #{tbu_guestid}
+	AND		TBU_DELETEYN = 'N'
+</update>
+
+<delete id="guestDelete" parameterType="com.see0gan.login.vo.GuestVO">
+	DELETE 
+	FROM 
+	GUEST 
+	WHERE TBU_DELETEYN = 'Y'
+</delete>
+<!-- 호스트 -->
+<select id="hostSelect" parameterType="com.see0gan.login.vo.HostVO">
+	SELECT
+		TBH_NUM,		
+        TBH_NICKNAME,			
+        TBH_NAME,		
+        TBH_EMAIL,		
+        TBH_PW,	
+        TBH_PHONE,			
+        TBH_DELETEYN,			
+        TBH_INSERTDATE,			
+        TBH_UPDATEDATE
+    FROM HOST
+    WHERE TBH_NUM = #{tbh_num}
+</select>
+
+<update id="hostynUpdate" parameterType="com.see0gan.login.vo.HostVO">
+	UPDATE HOST
+	SET
+			TBH_DELETEYN = 'Y',
+			TBH_UPDATEDATE = SYSDATE
+	WHERE	TBH_NUM = #{tbh_num}
+	AND		TBH_DELETEYN = 'N';
+</update>
+
+<delete id="hostDelete" parameterType="com.see0gan.login.vo.HostVO">
+	DELETE FROM HOST WHERE TBH_DELETEYN = 'Y'
+</delete>
+
+
+	
+</mapper>
+
+
+

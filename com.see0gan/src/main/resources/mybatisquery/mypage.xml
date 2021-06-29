@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.see0gan.mypage.dao.MypageDAO">
+<!-- 예약 -->
+<resultMap type="com.see0gan.booking.vo.BookingVO" id="BookingVO">
+	<result property="tbsp_bok_num" column="TBSP_BOK_NUM"/>
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_bok_date" column="TBSP_BOK_DATE"/>
+	<result property="tbsp_bok_time_s" column="TBSP_BOK_TIME_S"/>
+	<result property="tbsp_bok_time_e" column="TBSP_BOK_TIME_E"/>
+	<result property="tbsp_bok_type" column="TBSP_BOK_TYPE"/>
+	<result property="tbsp_bok_status" column="TBSP_BOK_STATUS"/>
+	<result property="tbsp_bok_person" column="TBSP_BOK_PERSON"/>
+	<result property="tbsp_name" column="TBSP_NAME"/>
+	<result property="tbsp_capacity" column="TBSP_CAPACITY"/>
+	<result property="tbu_name" column="TBU_NAME"/>
+	<result property="tbu_guestid" column="TBU_GUESTID"/>
+	<result property="tbu_phone" column="TBU_PHONE"/>
+	<result property="tbsp_bok_deleteyn" column="TBSP_BOK_DELETEYN"/>
+</resultMap>
+
+<!-- 공간등록 -->
+<resultMap type="com.see0gan.space.vo.SP_AccountsInfoVO" id="SP_AccountsInfoVO">
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_bok_type" column="TBSP_BOK_TYPE"/>
+	<result property="tbc_name" column="TBC_NAME"/>
+	<result property="tbc_ceo" column="TBC_CEO"/>
+	<result property="tbc_res_num" column="TBC_RES_NUM"/>
+	<result property="tbc_type" column="TBC_TYPE"/>
+	<result property="tbc_mainbizstat" column="TBC_MAINBIZSTAT"/>
+	<result property="tbc_maintheme" column="TBC_MAINTHEME"/>
+	<result property="tbc_addr1" column="TBC_ADDR1"/>
+	<result property="tbc_addr2" column="TBC_ADDR2"/>
+	<result property="tbb_email" column="TBB_EMAIL"/>
+	<result property="tbb_tel" column="TBB_TEL"/>
+	<result property="tbb_name" column="TBB_NAME"/>
+	<result property="tbb_acuntnum" column="TBB_ACUNTNUM"/>
+	<result property="tbb_depositor" column="TBB_DEPOSITOR"/>
+	<result property="tbsp_refund1" column="TBSP_REFUND1"/>
+	<result property="tbsp_refund2" column="TBSP_REFUND2"/>
+	<result property="tbsp_refund3" column="TBSP_REFUND3"/>
+</resultMap>
+
+<!-- 공간등록 --><!-- 게스트정보 -->
+<resultMap type="com.see0gan.space.vo.SP_GuideInfoVO" id="SP_GuideInfoVO">
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_convenient1" column="TBSP_CONVENIENT1"/>
+	<result property="tbsp_convenient2" column="TBSP_CONVENIENT2"/>
+	<result property="tbsp_convenient3" column="TBSP_CONVENIENT3"/>
+	<result property="tbsp_convenient4" column="TBSP_CONVENIENT4"/>
+	<result property="tbsp_convenient5" column="TBSP_CONVENIENT5"/>
+	<result property="tbsp_convenient6" column="TBSP_CONVENIENT6"/>
+	<result property="tbsp_convenient7" column="TBSP_CONVENIENT7"/>
+	<result property="tbsp_convenient8" column="TBSP_CONVENIENT8"/>
+	<result property="tbsp_convenient9" column="TBSP_CONVENIENT9"/>
+	<result property="tbsp_time_start" column="TBSP_TIME_START"/>
+	<result property="tbsp_time_end" column="TBSP_TIME_END"/>
+	<result property="tbsp_cost" column="TBSP_COST"/>
+	<result property="tbsp_r_dayoff" column="TBSP_R_DAYOFF"/>
+	<result property="tbsp_r_dayoff2" column="TBSP_R_DAYOFF2"/>
+	<result property="tbsp_dayoff" column="TBSP_DAYOFF"/>
+	<result property="tbsp_dayoff_start" column="TBSP_DAYOFF_START"/>
+	<result property="tbsp_dayoff_end" column="TBSP_DAYOFF_END"/>
+	<result property="tbsp_dayoff2" column="TBSP_DAYOFF2"/>
+</resultMap>
+
+<!-- 공간등록 --><!-- 호스트정보 -->
+<resultMap type="com.see0gan.space.vo.SP_HostInfoVO" id="SP_HostInfoVO">
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbh_num" column="TBH_NUM"/>
+	<result property="tbh_email" column="TBH_EMAIL"/>
+	<result property="tbh_phone" column="TBH_PHONE"/>
+	<result property="tbsp_tel" column="TBSP_TEL"/>
+</resultMap>
+
+<!-- 공간등록 --><!-- 공간정보 기본 -->
+<resultMap type="com.see0gan.space.vo.SP_BasicInfoVO" id="SP_BasicInfoVO">
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_name" column="TBSP_NAME"/>
+	<result property="tbsp_type" column="TBSP_TYPE"/>
+	<result property="tbsp_intro1" column="TBSP_INTRO1"/>
+	<result property="tbsp_intro2" column="TBSP_INTRO2"/>
+	<result property="tbsp_capacity" column="TBSP_CAPACITY"/>
+	<result property="tbsp_guide" column="TBSP_GUIDE"/>
+	<result property="tbsp_caution" column="TBSP_CAUTION"/>
+	<result property="tbsp_url" column="TBSP_URL"/>
+	<result property="tbsp_img1" column="TBSP_IMG1"/>
+	<result property="tbsp_img2" column="TBSP_IMG2"/>
+	<result property="tbsp_addr" column="TBSP_ADDR"/>
+	<result property="tbsp_addr2" column="TBSP_ADDR2"/>
+	<result property="tbsp_deleteyn" column="TBSP_DELETEYN"/>
+	<result property="tbsp_insertdate" column="TBSP_INSERTDATE"/>
+	<result property="tbsp_updatedate" column="TBSP_UPDATEDATE"/>
+	<result property="tbsp_expoyn" column="TBSP_EXPOYN"/>
+	<result property="tbh_num" column="TBH_NUM"/>
+	
+	<result property="tbsp_tag1" column="TBSP_TAG1"/>
+	<result property="tbsp_tag2" column="TBSP_TAG2"/>
+	<result property="tbsp_tag3" column="TBSP_TAG3"/>
+	<result property="tbsp_tag4" column="TBSP_TAG4"/>
+	<result property="tbsp_tag5" column="TBSP_TAG5"/>
+</resultMap>
+
+<!-- 로그인 -->
+<resultMap type="com.see0gan.login.vo.GuestVO" id="GuestVO">
+	<result property="guestId" column="TBU_GUESTID"/>
+	<result property="nickName" column="TBU_NICKNAME"/>
+	<result property="name" column="TBU_NAME"/>
+	<result property="email" column="TBU_EMAIL"/>
+	<result property="phone" column="TBU_PHONE"/>
+	<result property="password" column="TBU_PW"/>
+	<result property="deleteyn" column="TBU_DELETEYN"/>
+	<result property="insertdate" column="TBU_INSERTDATE"/>
+	<result property="updatedate" column="TBU_UPDATEDATE"/>
+</resultMap>
+
+<resultMap type="com.see0gan.login.vo.HostVO" id="HostVO">
+	<result property="hostNum" column="TBH_NUM"/>
+	<result property="nickName" column="TBH_NICKNAME"/>
+	<result property="name" column="TBH_NAME"/>
+	<result property="email" column="TBH_EMAIL"/>
+	<result property="pw" column="TBH_PASSWORD"/>
+	<result property="phone" column="TBH_PHONE"/>
+	<result property="deleteyn" column="TBH_DELETEYN"/>
+	<result property="insertdate" column="TBH_INSERTDATE"/>
+	<result property="updatedate" column="TBH_UPDATEDATE"/>
+</resultMap>
+
+<select id="getBookList" parameterType="com.see0gan.booking.vo.BookingVO" resultMap="BookingVO">
+	SELECT					
+		TBSP_NUM,											
+		TO_CHAR(TO_DATE(TBSP_BOK_DATE), 'YYYY/MM/DD') AS TBSP_BOK_DATE,							
+		TBSP_BOK_TIME_S,							
+		TBSP_BOK_TIME_E,							
+		TBSP_BOK_TYPE			
+	FROM BOK_HISTORY
+</select>
+
+<select id="getBookdetail" parameterType="com.see0gan.booking.vo.BookingVO" resultMap="BookingVO">
+	SELECT					
+		TBSP_NUM,											
+		TO_CHAR(TO_DATE(TBSP_BOK_DATE), 'YYYY/MM/DD') AS TBSP_BOK_DATE,							
+		TBSP_BOK_TIME_S,							
+		TBSP_BOK_TIME_E,							
+		TBSP_BOK_TYPE,
+		TBSP_NAME,
+		TBSP_BOK_PERSON,
+		TBU_GUESTID,
+		TBU_PHONE,
+		TBSP_BOK_DELETEYN,
+		TBU_NAME
+			
+	FROM BOK_HISTORY
+	WHERE TBSP_NUM = #{tbsp_num, jdbcType=VARCHAR}
+</select>
+
+<!-- 게스트 -->
+<select id="guestSelectAll" parameterType="com.see0gan.login.vo.GuestVO" resultMap="GuestVO">
+	SELECT
+		TBU_GUESTID,		
+        TBU_NICKNAME,			
+        TBU_NAME,		
+        TBU_EMAIL,		
+        TBU_PW,	
+        TBU_PHONE,			
+        TBU_DELETEYN,			
+        TBU_INSERTDATE,			
+        TBU_UPDATEDATE
+    FROM GUEST
+</select>
+
+<select id="guestSelect" parameterType="com.see0gan.login.vo.GuestVO" resultType="com.see0gan.login.vo.GuestVO">
+	SELECT
+		TBU_GUESTID,		
+        TBU_NICKNAME,			
+        TBU_NAME,		
+        TBU_EMAIL,		
+        TBU_PW,	
+        TBU_PHONE,			
+        TBU_DELETEYN,			
+        TBU_INSERTDATE,			
+        TBU_UPDATEDATE
+    FROM GUEST
+    WHERE TBU_GUESTID = #{guestId, jdbcType=VARCHAR}
+</select>
+
+<update id="guestUpdate" parameterType="com.see0gan.login.vo.GuestVO">
+	UPDATE GUEST
+	SET	
+        TBU_NICKNAME = #{nickName, jdbcType=VARCHAR},			
+        TBU_NAME = #{name, jdbcType=VARCHAR},		
+        TBU_EMAIL = #{email, jdbcType=VARCHAR},		
+        TBU_PW = #{password, jdbcType=VARCHAR},	
+        TBU_PHONE = #{phone, jdbcType=VARCHAR},
+        TBU_PASSWORD = #{password, jdbcType=VARCHAR},					
+        TBU_UPDATEDATE = SYSDATE
+	WHERE	TBU_GUESTID = #{guestId, jdbcType=VARCHAR}
+</update>
+
+<update id="guestynUpdate" parameterType="com.see0gan.login.vo.GuestVO">
+	UPDATE GUEST
+	SET
+			TBU_DELETEYN = 'Y',
+			TBU_UPDATEDATE = SYSDATE
+	WHERE	TBU_GUESTID = #{guestid, jdbcType=VARCHAR}
+	AND		TBU_DELETEYN = 'N'
+</update>
+
+<delete id="guestDelete" parameterType="com.see0gan.login.vo.GuestVO">
+	DELETE FROM GUEST WHERE TBU_DELETEYN = 'Y'
+</delete>
+<!-- 호스트 -->
+<select id="hostSelect" parameterType="com.see0gan.login.vo.HostVO">
+	SELECT
+		TBH_NUM,		
+        TBH_NICKNAME,			
+        TBH_NAME,		
+        TBH_EMAIL,		
+        TBH_PW,	
+        TBH_PHONE,			
+        TBH_DELETEYN,			
+        TBH_INSERTDATE,			
+        TBH_UPDATEDATE
+    FROM HOST
+    WHERE TBH_NUM = #{hostNum, jdbcType=VARCHAR}
+</select>
+
+<update id="hostUpdate" parameterType="com.see0gan.login.vo.HostVO">
+	UPDATE HOST
+	SET
+		TBH_NICKNAME = #{nickName, jdbcType=VARCHAR},			
+        TBH_NAME = #{name, jdbcType=VARCHAR},		
+        TBH_EMAIL = #{email, jdbcType=VARCHAR},		
+        TBH_PW = #{pw, jdbcType=VARCHAR},	
+        TBH_PHONE = #{phone, jdbcType=VARCHAR},			
+        TBH_UPDATEDATE = SYSDATE
+	WHERE	TBH_NUM = #{hostNum, jdbcType=VARCHAR}
+</update>
+
+<update id="hostynUpdate" parameterType="com.see0gan.login.vo.HostVO">
+	UPDATE HOST
+	SET
+			TBH_DELETEYN = 'Y',
+			TBH_UPDATEDATE = SYSDATE
+	WHERE	TBH_NUM = #{hostNum, jdbcType=VARCHAR}
+	AND		TBH_DELETEYN = 'N';
+</update>
+
+<delete id="hostDelete" parameterType="com.see0gan.login.vo.HostVO">
+	DELETE FROM HOST WHERE TBH_DELETEYN = 'Y'
+</delete>
+</mapper>
+
+
+

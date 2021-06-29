@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.see0gan.payment.dao.PaymentDAO">
+
+<resultMap type="com.see0gan.payment.vo.PaymentVO" id="pvo">
+	<result property="tbsp_pay_num" column="TBSP_PAY_NUM"/>
+	<result property="tbsp_pay_amount" column="TBSP_PAY_AMOUNT"/>
+	<result property="tbsp_pay_method" column="TBSP_PAY_METHOD"/>
+	<result property="tbsp_pay_status" column="TBSP_PAY_STATUS"/>
+	<result property="tbu_name" column="TBU_NAME"/>
+	<result property="tbu_phone" column="TBU_PHONE"/>
+</resultMap>
+
+<insert id="paymentInsert" parameterType="PaymentVO">
+
+	INSERT INTO PAYMENT(
+	    TBSP_PAY_NUM,
+	    TBSP_PAY_DATE,
+	    TBSP_PAY_AMOUNT,
+	    TBSP_PAY_METHOD,
+	    TBSP_PAY_STATUS,
+	    TBU_NAME,
+	    TBU_PHONE
+	) VALUES(
+	    #{tbsp_pay_num, jdbcType=VARCHAR},
+	    TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI'),
+	    #{tbsp_pay_amount, jdbcType=VARCHAR},
+	    #{tbsp_pay_method, jdbcType=VARCHAR},
+	    #{tbsp_pay_status, jdbcType=VARCHAR},
+	    #{tbu_name, jdbcType=VARCHAR},
+	    #{tbu_phone, jdbcType=VARCHAR}
+	) 
+
+</insert>
+
+<select id="paymentSelect" parameterType="PaymentVO" resultType="PaymentVO">
+	SELECT 
+			A.TBSP_PAY_NUM TBSP_PAY_NUM,
+		    A.TBSP_PAY_DATE TBSP_PAY_DATE,
+		    A.TBSP_PAY_AMOUNT TBSP_PAY_AMOUNT,
+		    A.TBSP_PAY_METHOD TBSP_PAY_METHOD,
+		    A.TBSP_PAY_STATUS TBSP_PAY_STATUS,
+		    A.TBU_NAME TBU_NAME,
+		    A.TBU_PHONE TBU_PHONE
+	FROM
+	PAYMENT A
+	WHERE A.TBU_NAME='송도헌' 
+	<!-- WHERE A.TBU_NAME=#{tbu_name, jdbcType=VARCHAR} -->
+	
+</select>
+<select id="paymentSelectAll" parameterType="PaymentVO" resultType="PaymentVO">
+	SELECT 
+			A.TBSP_PAY_NUM TBSP_PAY_NUM,
+		    A.TBSP_PAY_DATE TBSP_PAY_DATE,
+		    A.TBSP_PAY_AMOUNT TBSP_PAY_AMOUNT,
+		    A.TBSP_PAY_METHOD TBSP_PAY_METHOD,
+		    A.TBSP_PAY_STATUS TBSP_PAY_STATUS,
+		    A.TBU_NAME TBU_NAME,
+		    A.TBU_PHONE TBU_PHONE
+	FROM
+	PAYMENT A
+	ORDER BY TBSP_PAY_NUM DESC
+</select>
+
+<update id="paymentUpdate" parameterType="PaymentVO">
+	UPDATE PAYMENT SET 
+		    TBSP_PAY_STATUS ='cancelled'
+	WHERE TBSP_PAY_NUM ='P0001'
+</update>
+</mapper>

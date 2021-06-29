@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.see0gan.common.dao.ChabunDAO">
+
+	<select id="getPaymentChabun" resultType="PaymentVO">
+		SELECT /*+ INDEX_DESC (A SYS_C0011123)*/
+		NVL(MAX(SUBSTR(A.TBSP_PAY_NUM, -4)), 0) + 1
+		TBSP_PAY_NUM FROM PAYMENT A
+	</select>
+
+
+	<select id="getGuestIdChabun" resultType="GuestVO">
+		SELECT /*+ INDEX(SYS_C0011254) */
+		NVL(MAX(SUBSTR(G.TBU_GUESTID, -4)), 0) + 1 TBU_GUESTID
+		FROM GUEST G
+	</select>
+
+	<select id="getHostNumChabun" resultType="HostVO">
+		SELECT /*+ INDEX(SYS_C0011255) */
+		NVL(MAX(SUBSTR(A.TBH_NUM, -4)), 0) + 1 HOSTNUM
+		FROM HOST A
+	</select>
+
+	<select id="getBookingChabun" resultType="BookingVO">
+		SELECT
+		NVL(MAX(SUBSTR(A.tbsp_bok_num, -4)), 0) + 1 TBSP_BOK_NUM
+		FROM BOK_HISTORY A
+		<!-- <select id="getBookingChabun" resultType="BookingVO"> SELECT NVL(MAX(SUBSTR(A.tbsp_num, 
+			-4)), 0) + 1 tbsp_num FROM BOK_HISTORY A -->
+	</select>
+
+	<select id="getSpaceChabun" resultType="SP_BasicInfoVO">
+		SELECT
+		NVL(MAX(SUBSTR(A.tbsp_num, -4)), 0) + 1 tbsp_num
+		FROM SP_BASIC A
+	</select>
+
+	<select id="getNoticeChabun" resultType="mpvo">
+		SELECT
+		NVL(MAX(SUBSTR(A.TBNT_NUM, -4)), 0) + 1 NTNUM
+		FROM MP_NOTICE A
+	</select>
+
+	<select id="getReviewChabun" resultType="mpvo">
+		SELECT
+		NVL(MAX(SUBSTR(A.TBRV_NUM, -4)), 0) + 1 RVNUM
+		FROM MP_REVIEW A
+	</select>
+
+	<select id="getQnaChabun" resultType="mpvo">
+		SELECT
+		NVL(MAX(SUBSTR(A.TBQ_QNUM, -4)), 0) + 1 QNUM
+		FROM MP_QNA A
+	</select>
+
+	<select id="getOneChabun" resultType="mpvo">
+		SELECT
+		NVL(MAX(SUBSTR(A.TBONE_NUM, -4)), 0) + 1 ONENUM
+		FROM MP_ONEONONE A
+	</select>
+
+</mapper>			

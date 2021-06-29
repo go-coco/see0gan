@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<!--DAO의 @Repository를 통해서 mapper를 찾아옴 -->
+<mapper namespace="com.see0gan.space.dao.SpaceDAO">
+
+
+<select id="spaceInfo_SelectQuery" parameterType="sp_basicInfoVO" resultType="sp_basicInfoVO">
+
+SELECT 	A.TBSP_NUM TBSP_NUM
+		,A.TBSP_NAME TBSP_NAME
+		,A.TBSP_TYPE TBSP_TYPE
+		,A.TBSP_INTRO1 TBSP_INTRO1
+		,A.TBSP_INTRO2 TBSP_INTRO2
+		,A.TBSP_CAPACITY TBSP_CAPACITY
+		,A.TBSP_GUIDE TBSP_GUIDE
+		,A.TBSP_CAUTION TBSP_CAUTION
+		,A.TBSP_URL TBSP_URL
+		,A.TBSP_IMG1 TBSP_IMG1
+		,A.TBSP_IMG2 TBSP_IMG2
+		,A.TBSP_ADDR TBSP_ADDR
+		,A.TBSP_ADDR2 TBSP_ADDR2
+		,A.TBSP_DELETEYN TBSP_DELETEYN
+		,TO_CHAR(A.TBSP_INSERTDATE, 'YYYY-MM-DD') TBSP_INSERTDATE
+		,TO_CHAR(A.TBSP_UPDATEDATE, 'YYYY-MM-DD') TBSP_UPDATEDATE
+		,A.TBSP_EXPOYN TBSP_EXPOYN
+		,A.TBH_NUM TBH_NUM
+FROM SP_BASIC A
+WHERE A.TBSP_TYPE = #{tbsp_type, jdbcType=VARCHAR}
+</select>
+</mapper>

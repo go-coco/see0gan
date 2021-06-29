@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<!--DAO의 @Repository를 통해서 mapper를 찾아옴 -->
+<mapper namespace="com.see0gan.space.dao.SpaceDAO">
+
+
+
+<!-- id: DAO에서 sqlSession을 통해서 함수명(basicInfo_Insert) 받아옴 -->
+<!-- parameterType: SQL실행에 필요한 데이터를 mybatis-config.xml에서 설정한 VO앨리어스로부터 가져옴 -->
+
+<insert id="basicInfo_Insert" parameterType="sp_basicInfoVO">
+	INSERT INTO SP_BASIC (TBSP_NUM, TBSP_NAME, TBSP_TYPE, TBSP_INTRO1, TBSP_INTRO2
+						 ,TBSP_CAPACITY, TBSP_GUIDE, TBSP_CAUTION, TBSP_URL, TBSP_IMG1, TBSP_IMG2
+						 ,TBSP_ADDR, TBSP_ADDR2, TBSP_DELETEYN, TBSP_INSERTDATE, TBSP_UPDATEDATE, TBSP_EXPOYN
+						 ,TBH_NUM)
+				 values (#{tbsp_num, jdbcType=VARCHAR}, #{tbsp_name, jdbcType=VARCHAR}, #{tbsp_type, jdbcType=VARCHAR},
+				 		#{tbsp_intro1, jdbcType=VARCHAR}, #{tbsp_intro2, jdbcType=VARCHAR}, #{tbsp_capacity,jdbcType=VARCHAR},
+				 		#{tbsp_guide, jdbcType=VARCHAR}, #{tbsp_caution, jdbcType=VARCHAR}, #{tbsp_url, jdbcType=VARCHAR},
+				 		#{tbsp_img1, jdbcType=VARCHAR}, #{tbsp_img2, jdbcType=VARCHAR}, #{tbsp_addr, jdbcType=VARCHAR},
+				 		#{tbsp_addr2, jdbcType=VARCHAR}, 'N',
+				 		SYSDATE,
+				 		SYSDATE,
+				 		'N', #{tbh_num, jdbcType=VARCHAR})
+</insert>
+
+<insert id="basicInfoTag_Insert" parameterType="sp_basicInfoVO">
+	INSERT INTO SP_TAG (TBSP_NUM, TBSP_TAG1, TBSP_TAG2, TBSP_TAG3, TBSP_TAG4
+						 ,TBSP_TAG5)
+				 values (#{tbsp_num, jdbcType=VARCHAR}, #{tbsp_tag1, jdbcType=VARCHAR}, #{tbsp_tag2, jdbcType=VARCHAR},
+				 		#{tbsp_tag3, jdbcType=VARCHAR}, #{tbsp_tag4, jdbcType=VARCHAR}, #{tbsp_tag5, jdbcType=VARCHAR} 
+				 		)
+</insert>
+
+<!-- SP_GuideInfoVO  -->
+<insert id="guide_Insert" parameterType="sp_guideinfovo">
+	
+	INSERT INTO SP_GUIDE(	
+					TBSP_NUM, 
+					TBSP_TIME_START, 
+					TBSP_TIME_END, 
+					TBSP_COST
+					)
+	VALUES(	
+				#{tbsp_num, jdbcType=VARCHAR},
+				#{tbsp_time_start, jdbcType=VARCHAR}, 
+				#{tbsp_time_end, jdbcType=VARCHAR}, 
+				#{tbsp_cost, jdbcType=VARCHAR}
+				)
+				
+</insert>
+
+<insert id="dayoff_Insert" parameterType="sp_guideinfovo">
+	INSERT INTO SP_DAYOFF(	
+						TBSP_NUM,
+						TBSP_R_DAYOFF,
+						TBSP_R_DAYOFF2,
+						TBSP_DAYOFF,
+						TBSP_DAYOFF_START,
+						TBSP_DAYOFF_END,
+						TBSP_DAYOFF2
+						)
+		VALUES(	
+					#{tbsp_num, jdbcType=VARCHAR},
+					#{tbsp_r_dayoff, jdbcType=VARCHAR},
+					#{tbsp_r_dayoff2, jdbcType=VARCHAR},
+					#{tbsp_dayoff, jdbcType=VARCHAR},
+					#{tbsp_dayoff_start, jdbcType=DATE},
+					#{tbsp_dayoff_end, jdbcType=DATE},
+					#{tbsp_dayoff2, jdbcType=VARCHAR}
+					)
+</insert>
+
+<insert id="convenient_Insert" parameterType="sp_guideinfovo">
+	INSERT INTO SP_CONVENIENT(	
+									TBSP_NUM,
+									TBSP_CONVENIENT1,
+									TBSP_CONVENIENT2,
+									TBSP_CONVENIENT3,
+									TBSP_CONVENIENT4,
+									TBSP_CONVENIENT5,
+									TBSP_CONVENIENT6,
+									TBSP_CONVENIENT7,
+									TBSP_CONVENIENT8,
+									TBSP_CONVENIENT9
+									)
+		VALUES(	
+					#{tbsp_num, jdbcType=VARCHAR},
+					#{tbsp_convenient1, jdbcType=VARCHAR},
+					#{tbsp_convenient2, jdbcType=VARCHAR},
+					#{tbsp_convenient3, jdbcType=VARCHAR},
+					#{tbsp_convenient4, jdbcType=VARCHAR},
+					#{tbsp_convenient5, jdbcType=VARCHAR},
+					#{tbsp_convenient6, jdbcType=VARCHAR},
+					#{tbsp_convenient7, jdbcType=VARCHAR},
+					#{tbsp_convenient8, jdbcType=VARCHAR},
+					#{tbsp_convenient9, jdbcType=VARCHAR}
+					)
+</insert>
+
+<!-- SP_AccountsInfoVO  -->
+
+<insert id="acuntsInfo_Insert" parameterType="sp_accountsinfovo">
+	INSERT ALL
+	INTO SP_ACCOUNTS(	
+								TBSP_NUM,
+								TBSP_BOK_TYPE,
+								TBC_NAME,
+								TBC_CEO,
+								TBC_RES_NUM,
+								TBC_TYPE,
+								TBC_MAINBIZSTAT,
+								TBC_MAINTHEME,
+								TBC_ADDR1,
+								TBC_ADDR2,
+								TBB_EMAIL,
+								TBB_TEL,
+								TBB_NAME,
+								TBB_ACUNTNUM,
+								TBB_DEPOSITOR
+								)
+	VALUES(	
+				#{tbsp_num, jdbcType=VARCHAR},
+				#{tbsp_bok_type, jdbcType=VARCHAR},
+				#{tbc_name, jdbcType=VARCHAR},
+				#{tbc_ceo, jdbcType=VARCHAR},
+				#{tbc_res_num, jdbcType=VARCHAR},
+				#{tbc_type, jdbcType=VARCHAR},
+				#{tbc_mainbizstat, jdbcType=VARCHAR},
+				#{tbc_maintheme, jdbcType=VARCHAR},
+				#{tbc_addr1, jdbcType=VARCHAR},
+				#{tbc_addr2, jdbcType=VARCHAR},
+				#{tbb_email, jdbcType=VARCHAR},
+				#{tbb_tel, jdbcType=VARCHAR},
+				#{tbb_name, jdbcType=VARCHAR},
+				#{tbb_acuntnum, jdbcType=VARCHAR},
+				#{tbb_depositor, jdbcType=VARCHAR}
+				)
+	INTO SP_REFUND(	
+					TBSP_NUM,
+					TBSP_REFUND1,
+					TBSP_REFUND2,
+					TBSP_REFUND3
+					)
+	VALUES(	
+				#{tbsp_num, jdbcType=VARCHAR},
+				#{tbsp_refund1, jdbcType=VARCHAR},
+				#{tbsp_refund2, jdbcType=VARCHAR},
+				#{tbsp_refund3, jdbcType=VARCHAR}
+				)
+	SELECT * FROM DUAL
+</insert>
+<select id="hostInfo_Select" parameterType="hostVO" resultType="hostVO">
+   SELECT
+    A.TBSP_NUM TBSP_NUM,
+    H.TBH_EMAIL EMAIL,
+    H.TBH_NUM HOSTNUM
+   FROM SP_BASIC A,
+        HOST H
+   WHERE A.TBH_NUM = H.TBH_NUM
+   AND A.TBH_NUM ='H0001'<!-- tbh_num 세션처리후 > #{tbh_num, jdbcType=VARCHAR} -->
+</select>
+
+<select id="spaceInfo_SelectAll" parameterType="sp_basicInfoVO" resultType="sp_basicInfoVO">
+
+SELECT 	A.TBSP_NUM TBSP_NUM
+		,A.TBSP_NAME TBSP_NAME
+		,A.TBSP_TYPE TBSP_TYPE
+		,A.TBSP_INTRO1 TBSP_INTRO1
+		,A.TBSP_INTRO2 TBSP_INTRO2
+		,A.TBSP_CAPACITY TBSP_CAPACITY
+		,A.TBSP_GUIDE TBSP_GUIDE
+		,A.TBSP_CAUTION TBSP_CAUTION
+		,A.TBSP_URL TBSP_URL
+		,A.TBSP_IMG1 TBSP_IMG1
+		,A.TBSP_IMG2 TBSP_IMG2
+		,A.TBSP_ADDR TBSP_ADDR
+		,A.TBSP_ADDR2 TBSP_ADDR2
+		,B.TBSP_COST
+		,C.TBSP_TAG1
+		,C.TBSP_TAG2
+		,C.TBSP_TAG3
+		,C.TBSP_TAG4
+		,C.TBSP_TAG5
+		,A.TBSP_DELETEYN TBSP_DELETEYN
+		,TO_CHAR(A.TBSP_INSERTDATE, 'YYYY-MM-DD') TBSP_INSERTDATE
+		,TO_CHAR(A.TBSP_UPDATEDATE, 'YYYY-MM-DD') TBSP_UPDATEDATE
+		,A.TBSP_EXPOYN TBSP_EXPOYN
+		,A.TBH_NUM TBH_NUM
+FROM SP_BASIC A, SP_GUIDE B, SP_TAG C
+WHERE A.TBSP_NUM = B.TBSP_NUM AND A.TBSP_NUM = C.TBSP_NUM
+
+</select>
+
+<select id="spaceInfo_detail" parameterType="SP_BasicInfoVO" resultType="SP_BasicInfoVO">
+
+SELECT 	A.TBSP_NUM TBSP_NUM
+		,A.TBSP_NAME TBSP_NAME
+		,A.TBSP_TYPE TBSP_TYPE
+		,A.TBSP_INTRO1 TBSP_INTRO1
+		,A.TBSP_INTRO2 TBSP_INTRO2
+		,A.TBSP_CAPACITY TBSP_CAPACITY
+		,A.TBSP_GUIDE TBSP_GUIDE
+		,A.TBSP_CAUTION TBSP_CAUTION
+		,A.TBSP_URL TBSP_URL
+		,A.TBSP_IMG1 TBSP_IMG1
+		,A.TBSP_IMG2 TBSP_IMG2
+		,A.TBSP_ADDR TBSP_ADDR
+		,B.TBSP_REFUND1
+		,B.TBSP_REFUND2
+		,B.TBSP_REFUND3
+		,A.TBSP_ADDR2 TBSP_ADDR2
+		,A.TBSP_DELETEYN TBSP_DELETEYN
+		,TO_CHAR(A.TBSP_INSERTDATE, 'YYYY-MM-DD') TBSP_INSERTDATE
+		,TO_CHAR(A.TBSP_UPDATEDATE, 'YYYY-MM-DD') TBSP_UPDATEDATE
+		,A.TBSP_EXPOYN TBSP_EXPOYN
+		,A.TBH_NUM TBH_NUM
+FROM SP_BASIC A, SP_REFUND B
+WHERE A.TBSP_NUM = B.TBSP_NUM AND A.TBSP_NUM = #{tbsp_num, jdbcType=VARCHAR}
+
+</select>
+</mapper>

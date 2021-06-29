@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                 
+<mapper namespace="com.see0gan.login.dao.LoginDAO">
+
+
+<select id="getGuestAccess" parameterType="GuestVO" resultType="GuestVO">
+   SELECT
+   	A.TBU_GUESTID,
+   	A.TBU_NICKNAME,
+   	A.TBU_NAME,
+   	A.TBU_PHONE,
+   	A.TBU_EMAIL,
+   	A.TBU_PW TBU_PASSWORD
+   FROM GUEST A
+   WHERE A.TBU_DELETEYN = 'N' 
+	AND A.TBU_EMAIL = #{TBU_EMAIL, jdbcType=VARCHAR}
+	AND A.TBU_PW = #{TBU_PASSWORD, jdbcType=VARCHAR}
+</select>
+
+<select id="getHostAccess" parameterType="HostVO" resultType="HostVO">
+   SELECT
+   	A.TBH_NUM,
+   	A.TBH_NICKNAME,
+   	A.TBH_NAME,
+   	A.TBH_PHONE,
+   	A.TBH_EMAIL,
+   	A.TBH_PW TBH_PASSWORD
+   FROM HOST A
+   WHERE A.TBH_DELETEYN = 'N' 
+	AND A.TBH_EMAIL = #{TBH_EMAIL, jdbcType=VARCHAR}
+	AND A.TBH_PW = #{TBH_PASSWORD, jdbcType=VARCHAR}
+</select>
+
+<update id="guestUpdate" parameterType="GuestVO">
+	UPDATE GUEST
+	SET
+		TBU_NICKNAME = #{TBU_NICKNAME, jdbcType=VARCHAR},
+		TBU_PHONE = #{TBU_PHONE, jdbcType=VARCHAR},
+		TBU_PW = #{TBU_PASSWORD, jdbcType=VARCHAR}
+	WHERE TBU_GUESTID = #{TBU_GUESTID, jdbcType=VARCHAR}
+</update>
+
+<update id="hostUpdate" parameterType="HostVO">
+	UPDATE HOST
+	SET
+		TBH_NICKNAME = #{TBH_NICKNAME, jdbcType=VARCHAR},
+		TBH_PHONE = #{TBH_PHONE, jdbcType=VARCHAR},
+		TBH_PW = #{TBH_PASSWORD, jdbcType=VARCHAR}
+	WHERE TBH_NUM = #{TBH_NUM, jdbcType=VARCHAR}
+</update>
+
+<update id="guestDelete" parameterType="GuestVO">
+	UPDATE GUEST
+	SET
+		TBU_DELETEYN = 'Y'
+	WHERE TBU_GUESTID = #{TBU_GUESTID, jdbcType=VARCHAR}
+</update>
+
+<update id="hostDelete" parameterType="HostVO">
+	UPDATE HOST
+	SET
+		TBH_DELETEYN = 'Y'
+	WHERE TBH_NUM = #{TBH_NUM, jdbcType=VARCHAR}
+</update>
+</mapper>

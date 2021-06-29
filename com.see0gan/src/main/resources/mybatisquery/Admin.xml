@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.see0gan.admin.dao.AdminDAO">
+<!-- 예약 -->
+<resultMap type="com.see0gan.booking.vo.BookingVO" id="BookingVO">
+	<result property="tbsp_bok_num" column="TBSP_BOK_NUM"/>
+	<result property="tbsp_num" column="TBSP_NUM"/>
+	<result property="tbsp_bok_date" column="TBSP_BOK_DATE"/>
+	<result property="tbsp_bok_time_s" column="TBSP_BOK_TIME_S"/>
+	<result property="tbsp_bok_time_e" column="TBSP_BOK_TIME_E"/>
+	<result property="tbsp_bok_type" column="TBSP_BOK_TYPE"/>
+	<result property="tbsp_bok_status" column="TBSP_BOK_STATUS"/>
+	<result property="tbsp_bok_person" column="TBSP_BOK_PERSON"/>
+	<result property="tbsp_name" column="TBSP_NAME"/>
+	<result property="tbsp_capacity" column="TBSP_CAPACITY"/>
+	<result property="tbu_name" column="TBU_NAME"/>
+</resultMap>
+
+<!-- 로그인 -->
+<resultMap type="com.see0gan.login.vo.GuestVO" id="GuestVO">
+	<result property="TBU_GUESTID" column="TBU_GUESTID"/>
+	<result property="TBU_NICKNAME" column="TBU_NICKNAME"/>
+	<result property="TBU_NAME" column="TBU_NAME"/>
+	<result property="TBU_EMAIL" column="TBU_EMAIL"/>
+	<result property="TBU_PHONE" column="TBU_PHONE"/>
+	<result property="TBU_PASSWORD" column="TBU_PASSWORD"/>
+	<result property="TBU_DELETEYN" column="TBU_DELETEYN"/>
+	<result property="TBU_INSERTDATE" column="TBU_INSERTDATE"/>
+	<result property="TBU_UPDATEDATE" column="TBU_UPDATEDATE"/>
+</resultMap>
+
+
+
+<resultMap type="com.see0gan.login.vo.HostVO" id="HostVO">
+	<result property="TBH_NUM" column="TBH_NUM"/>
+	<result property="TBH_NICKNAME" column="TBH_NICKNAME"/>
+	<result property="TBH_NAME" column="TBH_NAME"/>
+	<result property="TBH_EMAIL" column="TBH_EMAIL"/>
+	<result property="TBH_PASSWORD" column="TBH_PASSWORD"/>
+	<result property="TBH_PHONE" column="TBH_PHONE"/>
+	<result property="TBH_DELETEYN" column="TBH_DELETEYN"/>
+	<result property="TBH_INSERTDATE" column="TBH_INSERTDATE"/>
+	<result property="TBH_UPDATEDATE" column="TBH_UPDATEDATE"/>
+</resultMap>
+<!-- 결제 -->
+<resultMap type="com.see0gan.payment.vo.PaymentVO" id="PaymentVO">
+	<result property="tbsp_pay_num" column="TBSP_PAY_NUM"/>
+	<result property="tbsp_pay_amount" column="TBSP_PAY_AMOUNT"/>
+	<result property="tbsp_pay_method" column="TBSP_PAY_METHOD"/>
+	<result property="tbsp_pay_status" column="TBSP_PAY_STATUS"/>
+	<result property="tbu_name" column="TBU_NAME"/>
+	<result property="tbu_phone" column="TBU_PHONE"/>
+</resultMap>
+
+<!-- 1:1-->
+<resultMap type="com.see0gan.mypage.vo.MypageVO" id="mpvo">
+	<result property="onenum" column="TBONE_NUM"/>
+	<result property="onemnum" column="TBONE_MNUM"/>
+	<result property="onenick" column="TBONE_NICK"/>
+	<result property="onecontent" column="TBONE_CONTENT"/>
+	<result property="oneinsertdate" column="TBONE_INSERTDATE"/>
+	<result property="onedeleteyn" column="TBONE_DELETEYN"/>
+</resultMap>
+
+<select id="getBookListadmin" parameterType="BookingVO" resultType= "BookingVO"  >
+	SELECT					
+		TBSP_NUM,											
+		TBSP_BOK_DATE,							
+		TBSP_BOK_TIME_S,							
+		TBSP_BOK_TIME_E,							
+		TBSP_BOK_TYPE			
+	FROM BOK_HISTORY
+</select>
+
+<!-- 게스트 -->
+<select id="guestSelectadmin" parameterType="java.util.Map" resultType= "GuestVO" resultMap="GuestVO">
+	SELECT
+		TBU_GUESTID,		
+        TBU_NICKNAME,			
+        TBU_NAME,		
+        TBU_EMAIL,		
+        TBU_PW,	
+        TBU_PHONE,			
+        TBU_DELETEYN,			
+        TBU_INSERTDATE,			
+        TBU_UPDATEDATE
+    FROM GUEST
+    WHERE   
+	<if test="keyfilter=='key1'">
+		<![CDATA[  TBU_GUESTID LIKE '%' || #{keyword} || '%']]>
+	</if>
+	<if test="keyfilter=='key2'">
+		<![CDATA[  TBU_NAME LIKE '%' || #{keyword} || '%']]>
+	</if>
+	ORDER BY 1
+
+</select>
+
+<!-- 게스트 전체 -->
+<select id="guestSelectAll" parameterType="java.util.Map" resultType= "GuestVO" resultMap="GuestVO">
+	   SELECT
+      TBU_GUESTID,      
+        TBU_NICKNAME,         
+        TBU_NAME,      
+        TBU_EMAIL,      
+        TBU_PW,   
+        TBU_PHONE,         
+        TBU_DELETEYN,         
+        TBU_INSERTDATE,         
+        TBU_UPDATEDATE
+    FROM GUEST
+    
+
+
+</select>
+
+<!-- 게스트 전체 -->
+
+
+<delete id="guestDeleteAdmin"  parameterType="java.util.Map">
+	UPDATE GUEST
+	SET
+			TBU_DELETEYN = 'Y',
+			TBU_UPDATEDATE = SYSDATE
+	WHERE	TBU_GUESTID = #{deleteId}
+	AND		TBU_DELETEYN = 'N'
+</delete>
+
+
+<!-- 호스트 -->
+<select id="hostSelectadmin" parameterType="java.util.Map" resultType= "HostVO" resultMap="HostVO">
+	SELECT
+		TBH_NUM,		
+        TBH_NICKNAME,			
+        TBH_NAME,		
+        TBH_EMAIL,		
+        TBH_PW,	
+        TBH_PHONE,			
+        TBH_DELETEYN,			
+        TBH_INSERTDATE,			
+        TBH_UPDATEDATE
+    FROM HOST
+    WHERE TBH_NUM = #{TBH_NUM}
+</select>
+
+<!-- 호스트 전체  -->
+<select id="hostSelectAll" resultType="HostVO" parameterType="java.util.Map" resultMap="HostVO">
+	SELECT
+		TBH_NUM,		
+        TBH_NICKNAME,			
+        TBH_NAME,		
+        TBH_EMAIL,		
+        TBH_PW,	
+        TBH_PHONE,			
+        TBH_DELETEYN,			
+        TBH_INSERTDATE,			
+        TBH_UPDATEDATE
+    FROM HOST
+    WHERE TBH_DELETEYN = 'N'
+	<if test="keyfilter=='key1'  ">
+		<![CDATA[ AND TBH_NAME LIKE '%' || #{keyword} || '%']]>
+	</if>
+	<if test="keyfilter=='key2'  ">
+		<![CDATA[ AND TBH_NUM LIKE '%' || #{keyword} || '%']]>
+	</if>
+	ORDER BY 1
+</select>
+
+<delete id="hostDeleteAdmin"  parameterType="java.util.Map">
+	UPDATE HOST
+	SET
+			TBH_DELETEYN = 'Y',
+			TBH_UPDATEDATE = SYSDATE
+	WHERE	TBH_NUM = #{deleteId}
+	AND		TBH_DELETEYN = 'N'
+</delete>
+
+
+<!-- count -->
+	<select id="totalAllhostMember"  parameterType="HostVO"  resultType= "integer" >
+	select count(*) from HOST
+	</select>
+	
+	<select id="totalAllguestMember"  parameterType="GuestVO" resultType= "integer" >
+	
+	select count(*) from GUEST
+	</select>
+		
+	<select id="newGuestcnt" resultType= "integer" >
+	<![CDATA[
+	select count(*)
+	from GUEST
+	where to_char( TBU_INSERTDATE, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	]]>
+	</select>
+	
+	<select id="newHostcnt"   resultType= "integer" >
+	<![CDATA[
+	select count(*) 
+	from HOST
+	where to_char( TBH_INSERTDATE, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	]]>
+	</select>
+
+<!-- 결제 -->
+<select id="paymentSelectAdmin" parameterType="java.util.Map" resultType="PaymentVO">
+
+	SELECT 
+			TBSP_PAY_NUM,
+		    TBSP_PAY_DATE,
+		    TBSP_PAY_AMOUNT,
+		    TBSP_PAY_METHOD,
+		    TBSP_PAY_STATUS,
+		    TBU_NAME,
+		    TBU_PHONE
+	FROM
+	PAYMENT 
+ 	WHERE 
+	<if test="keyfilter=='key1' and keyfilter != null ">
+		<![CDATA[  TBSP_PAY_NUM LIKE '%' || #{keyword} || '%']]>
+	</if>
+	<if test="keyfilter=='key2' and keyfilter != null">
+		<![CDATA[  TBU_NAME LIKE '%' || #{keyword} || '%']]>
+	</if>
+	
+	<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">
+		<![CDATA[AND TO_CHAR(TBSP_PAY_DATE, 'YYYY-MM-DD') >= TO_CHAR(TO_DATE(#{startdate, jdbcType=VARCHAR}), 'YYYY-MM-DD')]]>
+		<![CDATA[AND TO_CHAR(TBSP_PAY_DATE, 'YYYY-MM-DD') <= TO_CHAR(TO_DATE(#{enddate, jdbcType=VARCHAR}), 'YYYY-MM-DD')]]>
+	</if>
+	ORDER BY 1
+</select>
+
+
+
+<select id="paymentSelectAllAdmin" parameterType="java.util.Map" resultType="PaymentVO">
+	SELECT 
+			A.TBSP_PAY_NUM TBSP_PAY_NUM,
+		    A.TBSP_PAY_DATE TBSP_PAY_DATE,
+		    A.TBSP_PAY_AMOUNT TBSP_PAY_AMOUNT,
+		    A.TBSP_PAY_METHOD TBSP_PAY_METHOD,
+		    A.TBSP_PAY_STATUS TBSP_PAY_STATUS,
+		    A.TBU_NAME TBU_NAME,
+		    A.TBU_PHONE TBU_PHONE
+	FROM
+	PAYMENT A
+	ORDER BY TBSP_PAY_NUM DESC
+</select>
+	
+<select id="todayTotalPay"   resultType= "integer" >
+
+	<![CDATA[
+	select TBSP_PAY_AMOUNT
+	from PAYMENT
+	
+	]]>
+</select>	
+
+
+<update id="paymentUpdateAdmin" parameterType="java.util.Map">
+	UPDATE PAYMENT SET 
+	TBSP_PAY_STATUS = #{change_payment_status}
+	WHERE TBSP_PAY_NUM =#{change_tbsp_pay_num}
+</update>
+
+
+<select id="paystatus1" resultType="int" parameterType="String">
+		select count(*) from order_info where pay_status=#{param1}
+	</select>
+	
+	<select id="paystatus2" resultType="int" parameterType="String">
+		select count(*) from order_info where pay_status=#{param1}
+	</select>
+	<select id="paystatus3" resultType="int" parameterType="String">
+		select count(*) from order_info where pay_status=#{param1}
+	</select>
+	<select id="paystatus4" resultType="int" parameterType="String">
+		select count(*) from order_info where pay_status=#{param1}
+	</select>	
+<!--  1:1 게시판 -->
+
+<select id="oneSelectAllAdmin" parameterType="java.util.Map" resultType="mpvo" resultMap="mpvo">
+	SELECT	TBONE_NUM
+			,TBONE_MNUM
+			,TBONE_NICK
+			,TBONE_CONTENT
+			,TBONE_INSERTDATE
+			,TBONE_DELETEYN
+	FROM	MP_ONEONONE
+	WHERE TBONE_DELETEYN = 'N'
+	
+</select>
+
+
+
+</mapper>
+
+
+

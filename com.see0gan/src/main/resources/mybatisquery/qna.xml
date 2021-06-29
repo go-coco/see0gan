@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+						
+<mapper namespace="com.see0gan.qna.dao.QnaDAO">
+
+	<!-- (공간번호로)선택한 공간의 QnA목록을 가져오는 쿼리 -->
+	<select id="qnaList" parameterType="mpvo" resultType="mpvo">
+		SELECT
+		       Q.QNUM	                                            		AS QNUM         -- QnA 번호
+		       ,DECODE(Q.QDELYN, 'N', Q.QCONTENTS)                 		AS QCONTENTS    -- QnA 내용
+		       ,Q.QSPNUM                                           			AS QSPNUM        -- 공간 번호
+		       ,Q.QGROUPNUM                                       			AS QGROUPNUM    -- 그룹 번호
+		       ,Q.QTARGETNUM                                       			AS QTARGETNUM   -- 타겟 번호
+		       ,Q.QDELYN                                            		AS QDELYN       -- 삭제여부
+		       ,TO_CHAR(Q.QINDATE, 'YYYY/MM/DD')                   			AS QINDATE      -- 입력일
+		       ,DECODE(Q.QDELYN, 'N', Q.MNUM)                       	AS MNUM         -- 회원 번호
+		       ,DECODE(Q.QDELYN, 'N', Q.MNICK)                      	AS MNICK        -- 회원 닉네임
+		       ,DECODE(Q.QGROUPNUM, Q.QTARGETNUM, null, QQ.MNICK)   AS TARNICK      -- 타겟 회원 닉네임
+		FROM    (
+		SELECT  
+		        QL.TBQ_QNUM         AS QNUM
+		       ,QL.TBQ_QCONTENTS    AS QCONTENTS
+		       ,QL.TBQ_QSPNUM       AS QSPNUM
+		       ,QL.TBQ_QGROUPNUM    AS QGROUPNUM
+		       ,QL.TBQ_QTARGETNUM   AS QTARGETNUM
+		       ,QL.TBQ_QDELYN       AS QDELYN
+		       ,QL.TBQ_QINDATE      AS QINDATE
+		       ,QL.TBQ_MNUM         AS MNUM
+		       ,QL.TBQ_MNICK  		AS MNICK
+		FROM    MP_QNA QL
+		WHERE   QL.TBQ_QSPNUM = #{qspnum, jdbcType=VARCHAR}
+		) Q,(
+		SELECT  
+		        QLI.TBQ_QNUM         	AS QNUM
+		       ,QLI.TBQ_MNICK        	AS MNICK
+		FROM    MP_QNA QLI
+		) QQ
+		WHERE Q.QTARGETNUM = QQ.QNUM(+)
+		ORDER BY
+		        Q.QGROUPNUM ASC
+		       ,Q.QNUM ASC
+		       
+	</select>
+
+	<!-- (QnA 번호로)선택한 QnA을 가져오는 쿼리 -->
+	<select id="qnaSelect" parameterType="mpvo" resultType="mpvo">
+		SELECT  
+		        Q.TBQ_QNUM                             AS QNUM         -- QnA 번호
+		       ,Q.TBQ_QCONTENTS                        AS QCONTENTS    -- QnA 내용
+		       ,Q.TBQ_QSPNUM                           AS QSPNUM        -- 공간 번호
+		       ,Q.TBQ_QGROUPNUM                        AS QGROUPNUM    -- 그룹 번호
+		       ,Q.TBQ_QTARGETNUM                       AS QTARGETNUM   -- 타겟 번호
+		       ,Q.TBQ_QDELYN                           AS QDELYN       -- 삭제여부
+		       ,TO_CHAR(Q.TBQ_QINDATE, 'YYYY/MM/DD')   AS QINDATE      -- 입력일
+		       ,Q.TBQ_MNUM                             AS MNUM         -- 회원 번호
+		       ,Q.TBQ_MNICK							   AS MNICK		   -- 회원 닉네임
+		FROM    MP_QNA Q
+		WHERE   TBQ_QDELYN = 'N'
+		AND     TBQ_QNUM   = #{qnum, jdbcType=VARCHAR}
+	</select>
+
+	<!-- QnA을 입력하는 쿼리(최상위 QnA) -->
+	<insert id="qnaRootInsert" parameterType="mpvo">
+		<!-- 쿼리문 자체 채번 기능
+		<selectKey keyProperty="qnum" resultType="String" order="BEFORE">
+			SELECT 
+			        'C' || TO_CHAR(SYSDATE, 'YYYYMMDD') || LPAD(NVL(MAX(SUBSTR(TBQ_QNUM, -4)), 0) + 1, 4, '0')
+			FROM MP_QNA
+			WHERE SUBSTR(TBQ_QNUM, 2, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		</selectKey>
+		 -->
+		INSERT INTO MP_QNA (
+		        TBQ_QNUM        -- QnA 번호
+		       ,TBQ_QGROUPNUM   -- 그룹 번호
+		       ,TBQ_QCONTENTS   -- QnA 내용
+		       ,TBQ_QSPNUM       -- 공간 번호
+		       ,TBQ_MNUM        -- 회원 번호
+		       ,TBQ_MNICK		-- 회원 닉네임
+		       ,TBQ_QDELYN      -- 삭제 여부
+		       ,TBQ_QINDATE     -- QnA 작성일
+		)
+		VALUES (
+		        #{qnum, jdbcType=VARCHAR}
+		       ,#{qnum, jdbcType=VARCHAR}
+		       ,#{qcontents, jdbcType=VARCHAR}
+		       ,#{qspnum, jdbcType=VARCHAR}
+		       ,#{mnum, jdbcType=VARCHAR}
+		       ,#{mnick, jdbcType=VARCHAR}
+		       ,'N'
+		       ,SYSDATE
+		)
+	</insert>
+
+	<!-- QnA을 입력하는 쿼리(대 QnA) -->
+	<insert id="qnaReInsert" parameterType="mpvo">
+		<!-- 쿼리문 자체 채번 기능
+		<selectKey keyProperty="qnum" resultType="String" order="BEFORE">
+			SELECT 
+			        'C' || TO_CHAR(SYSDATE, 'YYYYMMDD') || LPAD(NVL(MAX(SUBSTR(TBQ_QNUM, -4)), 0) + 1, 4, '0')
+			FROM MP_QNA
+			WHERE SUBSTR(TBQ_QNUM, 2, 8) = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		</selectKey>
+		-->
+		INSERT INTO MP_QNA(
+		        TBQ_QNUM        -- QnA 번호
+		       ,TBQ_QGROUPNUM   -- 그룹 번호
+		       ,TBQ_QTARGETNUM  -- 타겟 번호
+		       ,TBQ_QCONTENTS   -- QnA 내용
+		       ,TBQ_QSPNUM      -- 공간 번호
+		       ,TBQ_MNUM        -- 회원 번호
+		       ,TBQ_MNICK       -- 회원 닉네임
+		       ,TBQ_QDELYN      -- 삭제 여부
+		       ,TBQ_QINDATE     -- QnA 작성일
+		)
+		VALUES (
+		        #{qnum, jdbcType=VARCHAR}
+		       ,#{qgroupnum, jdbcType=VARCHAR}
+		       ,#{qtargetnum, jdbcType=VARCHAR}
+		       ,#{qcontents, jdbcType=VARCHAR}
+		       ,#{qspnum, jdbcType=VARCHAR}
+		       ,#{mnum, jdbcType=VARCHAR}
+		       ,#{mnick, jdbcType=VARCHAR}
+		       ,'N'
+		       ,SYSDATE
+		)
+	</insert>
+
+	<!-- QnA을 수정하는 쿼리 -->
+	<update id="qnaUpdate" parameterType="mpvo">
+		UPDATE  MP_QNA
+		SET
+		        TBQ_QCONTENTS = #{qcontents, jdbcType=VARCHAR}
+		WHERE   TBQ_QDELYN = 'N'
+		AND     TBQ_QNUM   = #{qnum, jdbcType=VARCHAR}
+		AND     TBQ_MNUM   = #{mnum, jdbcType=VARCHAR}
+	</update>
+
+	<!-- QnA을 삭제하는 쿼리 -->
+	<update id="qnaDelete" parameterType="mpvo">
+		UPDATE  MP_QNA
+		SET
+		        TBQ_QDELYN = 'Y'
+		WHERE   TBQ_QDELYN = 'N'
+		AND     TBQ_QNUM   = #{qnum, jdbcType=VARCHAR}
+		AND     TBQ_MNUM   = #{mnum, jdbcType=VARCHAR}
+	</update>
+
+	<!-- QnA을 삭제하는 쿼리(관리자) -->
+	<update id="qnaDeleteAdmin" parameterType="mpvo">
+		UPDATE  MP_QNA
+		SET
+		        TBQ_QDELYN = 'Y'
+		WHERE   TBQ_QDELYN = 'N'
+		AND     TBQ_QNUM   = #{qnum, jdbcType=VARCHAR}
+	</update>
+
+</mapper>
